@@ -1,0 +1,64 @@
+<!--Notes
+
+    highlight the column when clicking it to be sorted
+    put a label on it to show clicking on a column will sort it
+    Make a food drop down or se if the data can find them and populate them somewhere
+    -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Documents</title>
+    {% load static %}
+    {% load custom_filters %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css\style.css' %}">
+</head>
+<body>
+
+    <h1>Current Documents</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Display a table of documents -->
+    {% if documents %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for document in documents %}
+                    <tr>
+                        <td>{{ document.file.name }}</td>
+                        <td>
+                            <form method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="file_id" value="{{ document.id }}">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No documents available.</p>
+    {% endif %}
+
+  <div class="buttons-container">
+    <a href="{% url 'home' %}"class="button">Home</a>                              
+    <a href="{% url 'upload_file' %}"class="button">Upload Document</a>
+    <a href="{% url 'data_summary' %}"class="button">Get Data Summary</a>       
+     <!-- <a href="{% url 'test_form' %}" class="button">Test Form</a>    -->
+</div>
+
+</body>
+</html>
+
+

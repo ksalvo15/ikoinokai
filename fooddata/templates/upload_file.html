@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Summary</title>
+    {% load static %}
+    {% load custom_filters %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css\style.css' %}">
+</head>
+<body>
+
+    <h1>Upload Document</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="files" multiple accept=".xlsx" />
+        <button type="submit">Upload</button>
+    </form>
+ <div class="buttons-container">
+    <a href="{% url 'home' %}"class="button">Home</a>
+    <a href="{% url 'view_documents' %}"class="button">View Current Documents</a>
+    <a href="{% url 'data_summary' %}"class="button">Get Data Summary</a>       
+     <!-- <a href="{% url 'test_form' %}" class="button">Test Form</a>    -->
+     </div>
+</body>
+
+
+</html>

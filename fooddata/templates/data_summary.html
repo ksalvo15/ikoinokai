@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Summary</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <h1>Image Hover Test</h1>
+    <table>
+        <tr>
+            <td><img src="https://via.placeholder.com/30" alt="Placeholder"></td>
+            <td>Some Data</td>
+        </tr>
+    </table>
+
+    <h1>Data Summary</h1>
+
+    <form method="post" action="{% url 'data_summary' %}">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Search by Date</legend>
+            <label for="specific_date">Specific Date:</label>
+            <input type="date" id="specific_date" name="specific_date" value="{{ specific_date }}">
+        </fieldset>
+        <fieldset>
+            <legend>Search by Date Range</legend>
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" value="{{ start_date }}">
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" value="{{ end_date }}">
+        </fieldset>
+        <fieldset>
+    <legend>Search by Lunch Menu Item</legend>
+    <label for="lunch_item">Lunch Menu Item:</label>
+    <input type="text" id="lunch_item" name="lunch_item" value="{{ lunch_item }}">
+</fieldset>
+        <button type="submit">Search</button>
+
+    </form>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% elif data %}
+        <h2>Data Summary</h2>
+        <div id="sort-message" style="color: green; margin-bottom: 10px;"></div>
+        <table id="data-table" border="1">
+            <thead>
+                <tr>
+                    <th>Image</th>  <!-- New column for image placeholder -->
+                    {% for key in data.0.keys %}
+                        {% if key != 'Image' %}  <!-- Exclude the 'Image' key from the headers -->
+                            <th style="cursor: pointer;" onclick="sortTable('{{ key }}')">{{ key }}</th>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                    <tr>
+                        <td><img src="{{ row.Image }}" alt="Placeholder" style="width: 30px; height: 30px;"></td>  <!-- Image cell -->
+                        {% for key, value in row.items %}
+                            {% if key != 'Image' %}  <!-- Exclude the 'Image' key from the row data -->
+                                <td>{{ value }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <div class="buttons-container">
+        <a href="{% url 'home' %}" class="button">Home</a>
+        <a href="{% url 'upload_file' %}" class="button">Upload Document</a>
+        <a href="{% url 'view_documents' %}" class="button">View Current Documents</a>
+    </div>
+
+    <script src="{% static 'js/js.js' %}"></script>
+       
+</body>
+</html>

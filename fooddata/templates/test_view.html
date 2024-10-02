@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Form</title>
+</head>
+<body>
+    <h1>Test Form</h1>
+
+    <form method="post" action="{% url 'test_form' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if data %}
+    <p>Received data: {{ data }}</p>
+    {% endif %}
+</body>
+</html>

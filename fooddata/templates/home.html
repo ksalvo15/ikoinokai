@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Summary</title>
+    {% load static %}
+    {% load custom_filters %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css\style.css' %}">
+</head>
+<body>
+
+    <h1>Ikoi no Kai Food Data</h1>
+    <p>Welcome to my first Django project!</p>
+
+<div class="buttons-container">
+    <a href="{% url 'upload_file' %}"class="button">Upload Document</a>
+    <a href="{% url 'view_documents' %}"class="button">View Current Documents</a>
+    <a href="{% url 'data_summary' %}"class="button">Get Data Summary</a>       
+     <!-- <a href="{% url 'test_form' %}" class="button">Test Form</a>    -->
+    </div>
+    
+</body>
+</html>
