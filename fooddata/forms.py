@@ -10,8 +10,11 @@ class MultipleFileField(forms.FileField):
         super().__init__(*args, **kwargs)
 
     def clean(self, data, initial=None):
-        if isinstance(data, (list, tuple)):
-            return [super().clean(file, initial) for file in data]
+        if isinstance(data, list):
+            cleaned_files = []
+            for file in data:
+                cleaned_files.append(super().clean(file, initial))
+            return cleaned_files
         return [super().clean(data, initial)]
 
 class ExcelForm(forms.Form):

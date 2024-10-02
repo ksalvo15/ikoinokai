@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='datarecord',
             name='date',
-            field=models.IntegerField(blank=True, null=True),
+            field=models.DateTimeField()
+            #field=models.IntegerField(blank=True, null=True),
         ),
     ]
