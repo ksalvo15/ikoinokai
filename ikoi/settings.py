@@ -26,7 +26,7 @@ SECRET_KEY = '5nx9@)cq=s$a$0t2_#a!*iqw)gyw#-r4hl6g%9^ms#gazx5nar'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ikoinokai.onrender.com']
 
 # Replace the SQLite DATABASES configuration with PostgreSQL:
 DATABASES = {
