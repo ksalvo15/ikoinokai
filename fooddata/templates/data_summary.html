@@ -4,13 +4,17 @@
     <title>Data Summary</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+   
 </head>
 <body>
 
     <h1>Image Hover Test</h1>
     <table>
         <tr>
-            <td><img src="https://via.placeholder.com/30" alt="Placeholder"></td>
+            <td>
+                <div class="image-wrapper">
+                    <img src="{{ row.Image }}" alt="Placeholder" class="table-image">
+                </div></td>
             <td>Some Data</td>
         </tr>
     </table>
@@ -45,30 +49,32 @@
     {% elif data %}
         <h2>Data Summary</h2>
         <div id="sort-message" style="color: green; margin-bottom: 10px;"></div>
-        <table id="data-table" border="1">
-            <thead>
-                <tr>
-                    <th>Image</th>  <!-- New column for image placeholder -->
-                    {% for key in data.0.keys %}
-                        {% if key != 'Image' %}  <!-- Exclude the 'Image' key from the headers -->
-                            <th style="cursor: pointer;" onclick="sortTable('{{ key }}')">{{ key }}</th>
-                        {% endif %}
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in data %}
+            <table id="data-table" border="1">
+                <thead>
                     <tr>
-                        <td><img src="{{ row.Image }}" alt="Placeholder" style="width: 30px; height: 30px;"></td>  <!-- Image cell -->
+                        <th>Image</th>  <!-- New column for image placeholder -->
+                        {% for key in data.0.keys %}
+                            {% if key != 'Image' %}  <!-- Exclude the 'Image' key from the headers -->
+                                <th style="cursor: pointer;" onclick="sortTable('{{ key }}')">{{ key }}</th>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tr>
+                    {% for row in data %}
+                        <td>
+                            <div class="image-wrapper">
+                                <img src="{{ row.Image }}" alt="Placeholder" class="table-image">
+                            </div>  <!-- Image cell -->
+                        </td>
                         {% for key, value in row.items %}
                             {% if key != 'Image' %}  <!-- Exclude the 'Image' key from the row data -->
                                 <td>{{ value }}</td>
                             {% endif %}
                         {% endfor %}
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </tr>
+                    {% endfor %}
+            </table>
     {% endif %}
 
     <div class="buttons-container">
