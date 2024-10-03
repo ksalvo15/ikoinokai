@@ -9,6 +9,16 @@ h1, h2, h3, h4, h5, h6 {
     color: #0056b3;
 }
 
+table th {
+    background-color: #f2f2f2;
+    cursor: pointer;
+    word-wrap: break-word; /* Allow word wrapping */
+    max-height: 3em; /* Limit the height to approximately 2 lines */
+    line-height: 1.5em; /* Adjust line height to control spacing */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Optional: Add ellipsis for overflow */
+}
+
 table {
     border-collapse: collapse;
     width: 100%;
@@ -19,13 +29,9 @@ th, td {
     padding: 0px;
     overflow: visible; /* Allow overflow in table cells */
     position: relative; /* Positioning context for child elements */
+    text-align: center;
 }
 
-th {
-    background-color: #f2f2f2;
-    text-align: left;
-    cursor: pointer;
-}
 
 th:hover {
         background-color: #ddd; /* Optional: Change background on hover */
@@ -76,9 +82,3 @@ th:hover {
 .button:hover {
         background-color: #232222; /* Darker color on hover */
 }
-
-
-
-
-
-
