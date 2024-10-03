@@ -23,9 +23,21 @@ DEBUG = True
 ALLOWED_HOSTS = ['ikoinokai.onrender.com', '127.0.0.1']
 
 # Database configuration
-DATABASES = {
-    'default': dj_database_url.parse("postgresql://ikoidata_user:DDN3cc6hdtWoDNDPaGzEkVuezQ2mijNR@dpg-crup2468ii6s739v4omg-a.oregon-postgres.render.com/ikoidata")
-}
+
+DATABASE_URL = os.environ.get('DATABASE_URL', None)
+
+
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse("postgresql://ikoidata_user:DDN3cc6hdtWoDNDPaGzEkVuezQ2mijNR@dpg-crup2468ii6s739v4omg-a.oregon-postgres.render.com/ikoidata")
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 # Application definition
 INSTALLED_APPS = [
