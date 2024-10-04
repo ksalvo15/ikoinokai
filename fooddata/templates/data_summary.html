@@ -4,118 +4,8 @@
     <title>Data Summary</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <style>
-        body {
-            background-color: #ADD8E6; /* Light Blue */
-            font-family: Arial, sans-serif;
-            color: #333;
-            overflow: visible;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            color: #0056b3;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 0px;
-            overflow: visible; /* Allow overflow in table cells */
-            position: relative; /* Positioning context for child elements */
-            text-align: center;
-        }
-
-        table th {
-            background-color: #f2f2f2;
-            text-align: center !important; /* Center the text in the headers */
-            cursor: pointer;
-            word-wrap: break-word; /* Allow word wrapping */
-            max-height: 4em; /* Limit the height to approximately 2 lines */
-            line-height: 1em; /* Adjust line height to control spacing */
-            overflow: hidden; /* Hide overflow text */
-            white-space: normal; /* Allow wrapping of long text */
-            width: auto; /* Allow width to adjust based on content */
-        }
-
-        /* Specific styles for header cells to ensure word wrap and height constraints */
-        table th {
-            max-height: 4em; /* Maximum height for the header */
-            line-height: em; /* Adjust line height for two lines */
-            overflow: hidden; /* Hide overflow text */
-            white-space: normal; /* Allow wrapping of long text */
-            padding: 8px; /* Add some padding for better spacing */
-        }
-
-        th:hover {
-            background-color: #ddd; /* Optional: Change background on hover */
-        }
-
-        .image-wrapper {
-            overflow: visible; /* Allow overflow */
-            position: relative; /* Positioning context for the image */
-        }
-
-        .table-image {
-            width: 30px; /* Initial width */
-            height: 30px; /* Initial height */
-            transition: transform 0.3s ease; /* Smooth transition */
-        }
-
-        .image-wrapper:hover .table-image {
-            transform: scale(7); /* Enlarge the image on hover */
-            z-index: 100; /* Increase z-index */
-        }
-
-        .buttons-container {
-            position: fixed; /* Fixes the position relative to the viewport */
-            bottom: 0; /* Aligns to the bottom of the viewport */
-            left: 0;
-            width: 100%; /* Full width */
-            background-color: #ADD8E6; /* Match background color */
-            padding: 10px; /* Add padding around buttons */
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Optional shadow for separation */
-        }
-
-        .button {
-            display: inline-block;
-            padding: 0px 5px;
-            margin: 3px;
-            line-height: 25px; /* Centers text vertically */
-            font-size: 14px; /* Adjust font size as needed */
-            color: #fff;
-            background-color: darkorange; /* Primary button color */
-            text-align: center;
-            text-decoration: none;
-            border-radius: 4px; /* Rounded edges */
-            border: none;
-            box-sizing: border-box; /* Include padding and border in the element’s total width and height */
-            transition: background-color 0.9s ease; /* Smooth color transition */
-        }
-
-        .button:hover {
-            background-color: #232222; /* Darker color on hover */
-        }
-    </style>
-
-    
 </head>
 <body>
-
-<!--<h1>Image Hover Test</h1>
-<table>
-    <tr>
-        <td>
-            <div class="image-wrapper">
-                <img src="{{ row.Image }}" alt="Placeholder" class="table-image">
-            </div>  <!-- Image cell
-        <td>Some Data</td>
-    </tr>
-</table>        -->
-
 <h1>Data Summary Search</h1>
 
 <form method="post" action="{% url 'data_summary' %}">
@@ -138,129 +28,44 @@
         <input type="text" id="lunch_item" name="lunch_item" value="{{ lunch_item }}">
     </fieldset>
     <button type="submit">Search</button>
-
 </form>
 
 {% if error %}
     <p style="color: red;">{{ error }}</p>
 {% elif data %}
     <h2>Data Summary</h2>
-    <div>
-        <h3>Hidden Columns:</h3>
-        <ul id="hidden-columns" style="list-style-type: none; padding: 5px; display: flex; flex-wrap: wrap;">
-            <!-- Hidden columns will be listed here -->
-        </ul>
-    </div>
+    
     <div id="sort-message" style="color: green; margin-bottom: 10px;"></div>
     <table id="data-table" border="1">
         <thead>
             <tr>
-                <th>Image</th>  <!-- New column for image placeholder -->
                 {% for key in data.0.keys %}
-                    {% if key != 'Image' %}  <!-- Exclude the 'Image' key from the headers -->
-                    <th>
-                        <div style="display: flex; flex-direction: column; align-items: center;">
-                            <span style="cursor: pointer;" onclick="toggleColumn({{ forloop.counter0 }})">{{ key }}</span>
-                            <button style="margin-top: 5px;" onclick="toggleColumn({{ forloop.counter0 }})">Hide Column</button>
-                        </div>
+                    <th onclick="sortTable('{{ key }}')" style="cursor: pointer;">
+                        {{ key }}
                     </th>        
-                    <!-- <th style="cursor: pointer; text-align: center;" onclick="sortTable('{{ key }}')">{{ key }}</th> -->
-                
-                    {% endif %}
                 {% endfor %}
             </tr>
         </thead>
-        <tr>
+        <tbody>
             {% for row in data %}
-                <td>
-                    <div class="image-wrapper">
-                        <img src="{{ row.Image }}" alt="Placeholder" class="table-image">
-                    </div>  <!-- Image cell -->
-                </td>
-                {% for key, value in row.items %}
-                    {% if key != 'Image' %}  <!-- Exclude the 'Image' key from the row data -->
-                        <td style="text-align: center;">{{ value }}</td>
-                    {% endif %}
-                {% endfor %}
-        </tr>
+                <tr>
+                    {% for key, value in row.items %}
+                        {% if key != 'Image' %}
+                            <td style="text-align: center;">{{ value }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
             {% endfor %}
+        </tbody>
     </table>
 {% endif %}
 
-    <div class="buttons-container">
-        <a href="{% url 'home' %}" class="button">Home</a>
-        <a href="{% url 'upload_file' %}" class="button">Upload Document</a>
-        <a href="{% url 'view_documents' %}" class="button">View Current Documents</a>
-    </div>
+<div class="buttons-container">
+    <a href="{% url 'home' %}" class="button">Home</a>
+    <a href="{% url 'upload_file' %}" class="button">Upload Document</a>
+    <a href="{% url 'view_documents' %}" class="button">View Current Documents</a>
+</div>
 
-    <script src="{% static 'js/js.js' %}"></script>
-    <script>
-        // Track hidden columns
-        const hiddenColumns = {};
-
-        // Function to toggle column visibility
-        function toggleColumn(columnIndex) {
-            const table = document.getElementById("data-table");
-            const rows = table.getElementsByTagName("tr");
-            const columnName = rows[0].cells[columnIndex + 1].innerText; // +1 to account for the image column
-
-            for (let i = 0; i < rows.length; i++) {
-                const cell = rows[i].getElementsByTagName("td")[columnIndex] || rows[i].getElementsByTagName("th")[columnIndex];
-                if (cell) {
-                    // Toggle visibility
-                    if (cell.style.display === "none") {
-                        cell.style.display = ""; // Show column
-                        delete hiddenColumns[columnName]; // Remove from hidden list
-                    } else {
-                        cell.style.display = "none"; // Hide column
-                        hiddenColumns[columnName] = true; // Add to hidden list
-                    }
-                }
-            }
-
-            updateHiddenColumnsDisplay();
-        }
-
-        // Function to update the display of hidden columns
-        function updateHiddenColumnsDisplay() {
-            const hiddenList = document.getElementById("hidden-columns");
-            hiddenList.innerHTML = ""; // Clear previous list
-
-            for (const colName in hiddenColumns) {
-                const li = document.createElement("li");
-                li.innerText = colName;
-                li.style.cursor = "pointer";
-                li.onclick = () => restoreColumn(colName);
-                hiddenList.appendChild(li);
-            }
-        }
-
-        // Function to restore a hidden column
-        function restoreColumn(columnName) {
-            const table = document.getElementById("data-table");
-            const rows = table.getElementsByTagName("tr");
-            let columnIndex = -1;
-
-            // Find the index of the column by name
-            for (let i = 0; i < rows[0].cells.length; i++) {
-                if (rows[0].cells[i].innerText === columnName) {
-                    columnIndex = i - 1; // -1 to account for the image column
-                    break;
-                }
-            }
-
-            if (columnIndex !== -1) {
-                for (let i = 0; i < rows.length; i++) {
-                    const cell = rows[i].getElementsByTagName("td")[columnIndex] || rows[i].getElementsByTagName("th")[columnIndex];
-                    if (cell) {
-                        cell.style.display = ""; // Restore the cell
-                    }
-                }
-                delete hiddenColumns[columnName]; // Remove from hidden list
-                updateHiddenColumnsDisplay(); // Update the hidden columns list
-            }
-        }
-    </script>
-       
+<script src="{% static 'js/js.js' %}"></script>              
 </body>
 </html>
