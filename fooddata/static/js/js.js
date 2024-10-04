@@ -1,25 +1,30 @@
 function sortTable(columnKey) {
     const messageDiv = document.getElementById('sort-message');
-
-    // Log the column key to ensure the click event is triggered
     messageDiv.textContent = `Sorting column: ${columnKey}`;
 
     const table = document.getElementById('data-table');
     const tbody = table.getElementsByTagName('tbody')[0];
     const rows = Array.from(tbody.getElementsByTagName('tr'));
 
-    const columnIndex = Array.from(table.getElementsByTagName('th')).findIndex(th => th.textContent === columnKey);
+    // Find the index of the column to sort
+    const columnIndex = Array.from(table.getElementsByTagName('th')).findIndex(th => th.textContent.trim() === columnKey);
+
+    // If column not found, exit
+    if (columnIndex === -1) {
+        console.error(`Column ${columnKey} not found`);
+        return;
+    }
 
     // Determine the current sorting order
     const isAscending = !table.dataset.sortOrder || table.dataset.sortOrder === 'desc';
     table.dataset.sortOrder = isAscending ? 'asc' : 'desc';
 
+    // Sort the rows
     rows.sort((rowA, rowB) => {
-        const cellA = rowA.cells[columnIndex].textContent;
-        const cellB = rowB.cells[columnIndex].textContent;
+        const cellA = rowA.cells[columnIndex].textContent.trim();
+        const cellB = rowB.cells[columnIndex].textContent.trim();
 
-        if (columnKey === 'DATE') {
-            // Convert cell values to Date objects for comparison
+        if (columnKey === 'DATE') { // Adjust to your actual date column name
             const dateA = new Date(cellA);
             const dateB = new Date(cellB);
             return isAscending ? dateA - dateB : dateB - dateA;
