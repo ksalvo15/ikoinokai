@@ -27,6 +27,7 @@ class AdvancedSearchExcel(forms.Form):
     specific_date = forms.DateField(widget=forms.TextInput(attrs={'type': 'date'}), required=False)
     sort_column = forms.ChoiceField(choices=[], required=False)
     lunch_item = forms.CharField(max_length=255, required=False)
+    protein = forms.CharField(max_length=255, required=False)
     # Add more fields as needed
 
 

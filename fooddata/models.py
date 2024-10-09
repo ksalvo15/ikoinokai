@@ -31,9 +31,10 @@ class DataRecord(models.Model):
     script_money_collected = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     diff = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     script_sale = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    protein = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return f'{self.date} - {self.day} - {self.lunch_item} - {self.total_paying_people} - {self.senior_people} - {self.non_seniors} - {self.children_people} - {self.eleven_scripts} - {self.nine_scripts} - {self.eight_scripts} - {self.six_scripts} - {self.person_free_bday} - {self.nine_lunch_sale} - {self.lunch_sale} - {self.volunteer_people} - {self.total_people} - {self.amount_cost} - {self.money_collected} - {self.script_money_collected} - {self.diff} - {self.script_sale}'
+        return f'{self.date} - {self.day} - {self.lunch_item} - {self.total_paying_people} - {self.senior_people} - {self.non_seniors} - {self.children_people} - {self.eleven_scripts} - {self.nine_scripts} - {self.eight_scripts} - {self.six_scripts} - {self.person_free_bday} - {self.nine_lunch_sale} - {self.lunch_sale} - {self.volunteer_people} - {self.total_people} - {self.amount_cost} - {self.money_collected} - {self.script_money_collected} - {self.diff} - {self.script_sale} - {self.protein}'
 
 
     #document = models.ForeignKey(Document, on_delete=models.CASCADE)
