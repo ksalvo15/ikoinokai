@@ -22,6 +22,7 @@ table th {
 table {
     border-collapse: collapse;
     width: 100%;
+    padding-bottom: 50px;
 }
 
 th, td {
@@ -37,30 +38,28 @@ th:hover {
         background-color: #ddd; /* Optional: Change background on hover */
 }
 
-.image-wrapper {
-    overflow: visible; /* Allow overflow */
-    position: relative; /* Positioning context for the image */
-}
-
-.table-image {
-    width: 30px; /* Initial width */
-    height: 30px; /* Initial height */
-    transition: transform 0.3s ease; /* Smooth transition */
-}
-
-.image-wrapper:hover .table-image {
-    transform: scale(7); /* Enlarge the image on hover */
-    z-index: 100; /* Increase z-index */
-}
-
-.buttons-container {
-    position: fixed; /* Fixes the position relative to the viewport */
-    bottom: 0; /* Aligns to the bottom of the viewport */
+.navbar {
+    position: sticky; /* Change to sticky */
+    top: 0; /* Stick to the top */
     left: 0;
     width: 100%; /* Full width */
+    display: flex; /* Flexbox for horizontal layout */
+    justify-content: space-around; /* Space out links evenly */
+    padding: 10px; /* Add padding */
     background-color: #ADD8E6; /* Match background color */
-    padding: 10px; /* Add padding around buttons */
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Optional shadow for separation */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional shadow for separation */
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+.nav-link {
+    text-decoration: none; /* Remove underline */
+    color: #000; /* Text color */
+    padding: 10px; /* Padding around links */
+}
+
+.nav-link:hover {
+    background-color: #90CFFF; /* Change background on hover */
+    border-radius: 5px; /* Rounded corners on hover */
 }
 
 .button {

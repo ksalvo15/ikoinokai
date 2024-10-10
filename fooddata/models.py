@@ -7,6 +7,10 @@ class Document(models.Model):
     def __str__(self):
         return self.file.name
 
+class Receipt(models.Model):
+    uploaded_file = models.FileField(upload_to='uploads/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
 
 class DataRecord(models.Model):
     document = models.ForeignKey(Document, on_delete=models.CASCADE)

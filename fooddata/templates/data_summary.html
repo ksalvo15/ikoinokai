@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿<!--cost of the meal
+    multi year
+    receipt field
+    protein column
+    cant see bottom row
+     -->
+
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>Data Summary</title>
@@ -6,6 +15,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
+    <nav class="navbar">
+    <a href="{% url 'home' %}" class="nav-link button">Home</a>
+    <a href="{% url 'upload_file' %}" class="nav-link button">Upload Document</a>
+    <a href="{% url 'view_documents' %}" class="nav-link button">View Current Documents</a>
+</nav>
 <h1>Data Summary Search</h1>
 
 <form method="post" action="{% url 'data_summary' %}">
@@ -27,7 +41,7 @@
         <label for="lunch_item">Lunch Menu Item:</label>
         <input type="text" id="lunch_item" name="lunch_item" value="{{ lunch_item }}">
     </fieldset>
-    <fieldset>
+    <fieldset>   <!--there are no proteins yet-->
         <legend>Search by Protein</legend>
         <label for="protein">Protein:</label>
         <input type="text" id="protein" name="protein" value="{{ protein }}">
@@ -64,12 +78,6 @@
         </tbody>
     </table>
 {% endif %}
-
-<div class="buttons-container">
-    <a href="{% url 'home' %}" class="button">Home</a>
-    <a href="{% url 'upload_file' %}" class="button">Upload Document</a>
-    <a href="{% url 'view_documents' %}" class="button">View Current Documents</a>
-</div>
 
 <script src="{% static 'js/js.js' %}"></script>              
 </body>

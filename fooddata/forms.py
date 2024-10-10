@@ -18,7 +18,8 @@ class MultipleFileField(forms.FileField):
         return [super().clean(data, initial)]
 
 class ExcelForm(forms.Form):
-    files = MultipleFileField()
+    files = MultipleFileField(label="Upload Data")
+    receipts = MultipleFileField(label="Upload Receipts", required=False)
 
 class AdvancedSearchExcel(forms.Form):    
     #date = forms.DateField(widget=forms.TextInput(attrs={'type': 'date'}), required=False)

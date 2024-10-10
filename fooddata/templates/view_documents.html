@@ -24,6 +24,8 @@
     {% endif %}
 
     <!-- Display a table of documents -->
+
+    <h2>Data Summaries</h2>    
     {% if documents %}
         <table border="1">
             <thead>
@@ -49,6 +51,34 @@
         </table>
     {% else %}
         <p>No documents available.</p>
+    {% endif %}
+
+    <h2>Receipt Documents</h2>
+    {% if receipt_documents %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for document in receipt_documents %}
+                    <tr>
+                        <td>{{ document.uploaded_file.name }}</td>
+                        <td>
+                            <form method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="receipt_id" value="{{ document.id }}">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No receipt documents available.</p>
     {% endif %}
 
   <div class="buttons-container">

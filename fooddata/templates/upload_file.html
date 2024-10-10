@@ -15,6 +15,11 @@
         <input type="file" name="files" multiple accept=".xlsx" />
         <button type="submit">Upload</button>
     </form>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="receipts" multiple accept=".xlsx" />
+        <button type="submit">Upload Receipts</button>
+    </form>
  <div class="buttons-container">
     <a href="{% url 'home' %}"class="button">Home</a>
     <a href="{% url 'view_documents' %}"class="button">View Current Documents</a>

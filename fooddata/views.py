@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Document
 from .forms import ExcelForm
 from .forms import AdvancedSearchExcel
-from .models import DataRecord
+from .models import DataRecord, Receipt
 from django.contrib import messages
 #from .utils import excel_serial_to_datetime  # Import the conversion function
 from datetime import datetime, date as dt_date, timedelta
@@ -16,6 +16,9 @@ from datetime import datetime, date as dt_date, timedelta
 from .forms import TestForm
 
 #from .util import extract_data_by_column
+
+#receipts_df = pd.read_excel(file_path, sheet_name='Receipts')
+#money_collected_df = pd.read_excel(file_path, sheet_name='Money Collected')
 
 def fooddata(request):
   template = loader.get_template('home.html')
@@ -48,50 +51,6 @@ def view_documents(request):
 
     documents = Document.objects.all()
     return render(request, 'view_documents.html', {'documents': documents})
-
-
-
-
-#def upload_file(request):
-#    if request.method == 'POST':
-#        form = ExcelForm(request.POST, request.FILES)
-#        if form.is_valid():
-#            files = request.FILES.getlist('files')  # Get list of uploaded files
-#            all_data = []  # List to collect data from all files
-
-#            for file in files:
-#                try:
-#                    document = Document(file=file)
-#                    document.save()
-#                    # Read the Excel file
-#                    df_dict = pd.read_excel(file, engine='openpyxl', sheet_name=None, skiprows=2)
-                    
-#                    # Process each sheet
-#                    for sheet_name, df in df_dict.items():
-#                        # Ensure the 'Date' column is parsed as datetime
-#                        if 'DATE' in df.columns:
-#                            df['DATE'] = pd.to_datetime(df['DATE'], errors='coerce')
-#                            df['DATE'] = df['DATE'].astype(str)
-
-#                    # Append the dataframe to our list of all data
-#                    all_data.append(df)
-#                except Exception as e:
-#                    return render(request, 'upload_file.html', {'form': form, 'error': f'Error processing file {file.name}: {e}'})
-
-#            # Concatenate all dataframes into one
-#            full_df = pd.concat(all_data, ignore_index=True)
-
-#            # Store the combined dataframe in the session
-#            request.session['data'] = full_df.to_dict(orient='records')
-
-#            # Redirect to view_documents after successful upload
-#            return redirect('view_documents')
-#        else:
-#            return render(request, 'upload_file.html', {'form': form, 'error': 'Form is not valid.'})
-#    else:
-#        form = ExcelForm()
-#    return render(request, 'upload_file.html', {'form': form})
-
 
 
 def upload_file(request):
@@ -234,6 +193,62 @@ def data_summary(request):
         'end_date': end_date,
         'lunch_item': lunch_item,
     })
+
+def receipts(request): {
+    
+    
+}
+
+def upload_receipts(request):
+    if request.method == 'POST':
+        form = ExcelForm(request.POST, request.FILES)
+        if form.is_valid():
+            receipts = request.FILES.getlist('receipts')  # Get list of uploaded files
+            all_data = []  # List to collect data from all files
+
+            for receipt in receipts:
+                try:
+                    # Assuming Document model accepts a file
+                    document = Document(file=file)
+                    document.save()
+
+                    # Read the Excel file
+                    df_dict = pd.read_excel(file, engine='openpyxl', sheet_name=None, skiprows=0)
+                    
+                    # Process each sheet
+                    for sheet_name, df in df_dict.items():
+                        # Ensure the 'DATE' column is parsed as datetime
+                        if 'DATE' in df.columns:
+                            df['DATE'] = pd.to_datetime(df['DATE'], errors='coerce')
+                            df['DATE'] = df['DATE'].astype(str)
+
+                        # Append the dataframe to our list of all data
+                        all_data.append(df)
+                except Exception as e:
+                    return render(request, 'upload_file.html', {
+                        'form': form,
+                        'error': f'Error processing file {file.name}: {e}'
+                    })
+
+            # Concatenate all dataframes into one
+            if all_data:  # Check if there is any data to concatenate
+                full_df = pd.concat(all_data, ignore_index=True)
+
+                # Store the combined dataframe in the session
+                request.session['data'] = full_df.to_dict(orient='records')
+
+            # Redirect to view_documents after successful upload
+            return redirect('view_documents')
+        else:
+            return render(request, 'upload_file.html', {
+                'form': form,
+                'error': 'Form is not valid.'
+            })
+    else:
+        form = ExcelForm()
+    
+    return render(request, 'upload_file.html', {'form': form})    
+
 
 
 
