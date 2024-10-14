@@ -17,6 +17,9 @@ from .forms import TestForm
 
 #from .util import extract_data_by_column
 
+def index(request):
+    return render(request, 'index.html')  # Render your index template here
+
 def fooddata(request):
   template = loader.get_template('home.html')
   return HttpResponse(template.render())

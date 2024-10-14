@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Final HTML CSS Assigment</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css\css_index.css' %}">
+</head>
+
+<body class="Background">
+
+    <!--Navbar-->
+
+
+    <div class="navbar">
+        <a style="text-decoration: none;" href="#Home">Home</a>
+        <a style="text-decoration: none;" href="#About">About</a>
+        <a style="text-decoration: none;" href="#Github">Github</a>
+        <a style="text-decoration: none;" href="#Slideshow">Slideshow</a>
+        <a onclick="openform()" ondblclick="closeform()" class="contact">Contact</a>
+    </div>
+
+
+    <!--Top menu area-->
+
+
+
+    <div id="Home">
+        <!--backgroud video-->
+        <video autoplay muted loop id="oceanvideo">
+            <source src="picforfinal/ocean.mp4" type="video/mp4">
+        </video>
+    </div>
+    <!--END backgroud video-->
+
+    <div class="overlay">
+        <h1 class="white-text">Kelsey's Portfolio</h1>
+        <p class="header-text">
+            This is my website project that I edited and created using skills I learned from the Tech Academy.
+            <br>
+            <br> Some languages that I have learned are
+            <br>
+            <br><a href="https://github.com/ksalvo15/HTML-CSS-Projects">HTML</a>
+            <br><a href="https://github.com/ksalvo15/HTML-CSS-Projects">CSS</a>
+            <br><a href="https://github.com/ksalvo15/JavaScript-Projects">Javascript</a>
+            <br><a href="https://github.com/ksalvo15/Python-Projects">Python</a>
+            <br><a href="https://github.com/ksalvo15/TACsharpProjects">C#</a>
+    </div>
+
+    <!--slideshow-->
+    <div id="Slideshow">
+        <div id="slidebackground">
+            <div id="slideshowcontain">
+                <!--pictures for slideshow-->
+                <div class="slide fade">
+                    <img class="slideimg" src="{% static 'pics/me.jpg' %}" alt="pics">
+                    <div class="text"><p>Hey my name is Kelsey Salvo and I can help you on your projects!</p></div>
+                </div>
+
+                <div class="slide fade">
+                    <img class="slideimg" src="{% static 'pics/ocean.jpg' %}" alt="pics">
+                    <div class="text"><p>I have learned the basics of Javascript</p></div>
+                </div>
+
+                <div class="slide fade">
+                    <img class="slideimg" src="{% static 'pics/space.jpg' %}" alt="pics">
+                    <div class="text"><p>I have learned the basics of HMTL</p></div>
+                </div>
+
+                <div class="slide fade">
+                    <img class="slideimg" src="{% static 'pics/sunrise.jpg' %}" alt="pics">
+                    <div class="text"><p>I have learned the basics of CSS</p></div>
+                </div>
+
+                <div class="slide fade">
+                    <img class="slideimg" src="{% static 'pics/flower.jpg' %}" alt="pics">
+                    <div class="text"><p>I have learned the basics of Python</p></div>
+                </div>
+
+                <div class="slide fade">
+                    <img class="slideimg" src="{% static 'pics/mountain.jpg' %}" alt="pics">
+                    <div class="text"><p>I have learned the basics of C#</p></div>
+                </div>
+                <!--prev and next-->
+                <a class="prev" onclick="plusslide(-1)">&#10094;</a>
+                <a class="next" onclick="plusslide(1)">&#10095;</a>
+            </div>
+            <!--prev and next end-->
+            <!--dots on the slideshow-->
+            <div style="text-align: center">
+                <span class="dot" onclick="currentslide(1)"></span>
+                <span class="dot" onclick="currentslide(2)"></span>
+                <span class="dot" onclick="currentslide(3)"></span>
+                <span class="dot" onclick="currentslide(4)"></span>
+                <span class="dot" onclick="currentslide(5)"></span>
+                <span class="dot" onclick="currentslide(6)"></span>
+            </div>
+            <!--dots on the slideshow end-->
+        </div>
+    </div>
+
+    <!--end slideshow-->
+    <!--Main columned section of site-->
+    <div class="body-container">
+
+
+        <div id="About" class="container">
+            <div class="row-about">
+                <div class="column1">
+                    <h1><a style="text-decoration: none;" href="https://www.learncodinganywhere.com" target="blank">About</a></h1>
+                    <br>
+
+
+                    <p class="body-text">
+                        "I am a recent graduate of the Tech Academy's Software Development course, demonstrating a strong dedication to software development.
+                        <br>
+                        <br>
+                        <br>
+                        My portfolio website showcases my progress and projects, highlighting my skills in various programming languages and frameworks.
+                        I have a solid foundation in HTML, CSS, JavaScript, Python, and C#.
+                        <br>
+                        <br>
+                        <br>
+                        Here is my Linkedin page and Resume for reference
+                        <br>
+                        <a href="https://www.linkedin.com/in/kelseysalvo/">Linkedin</a>
+                        <br>
+                        <a href="https://docs.google.com/document/d/1Hb6OGB_eDYznt9xqFEk-jo8TL8q2xOB4n-qRBIA1UNk/edit?usp=sharing">Resume</a>
+                    </p>
+                </div>
+
+                <div class="column2">
+                    <img src="{% static 'pics/frisbeepic.jpeg' %}">
+                </div>
+            </div>
+
+        </div>
+
+        <!--github section-->
+
+        <div id="Github">
+            <div class="row-github">
+
+                <div id="Contact" class="column2-github">
+                    <img src="{% static 'pics/balloonpic.jpg' %}">
+                </div>
+
+                <div class="column1-github">
+                    <h1><a style="text-decoration: none;" href="https://github.com/ksalvo15/HTML-CSS-Projects" target="blank">Kelsey's Github Projects</a></h1>
+                    <br>
+
+                    <p class="body-text">
+                        I worked on a website project alongside other students for my 2 week <a href="https://github.com/ksalvo15/Liveproject">Liveproject</a>.
+                        I utilized the MVC framework to implement features like creating, editing, deleting entries, and sorting data. This experience allowed me to gain
+                        practical knowledge and hands-on experience in software development.
+                        <br>
+                        <br>
+                        <br>
+                        I also have the projects that I have worked on during my software development course on my <a href="https://github.com/ksalvo15">
+                            Github.
+                        </a> These projects reflect my continuous growth and dedication to honing my skills in software development page.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--contact section-->
+
+    <div id="Contact">
+        <button onclick="openform()" class="popup">Contact</button>
+        <div class="formpop" id="myform">
+            <form action="https://formspree.io/f/mknlbyyk" method="POST" class="formcontain">
+                <h1>Contact</h1>
+                <label for="name"><b>Name</b></label>
+                <input type="text" placeholder="Type your name here" name="name" required>
+                <label for="phone"><b>Phone</b></label>
+                <input type="text" placeholder="Type your phone number here" name="phone">
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Type your email address here" name="email" required>
+                <label for="message"><b>Message</b></label>
+                <input type="text" placeholder="Type your message here" name="message">
+                <button type="submit" class="btn">SUBMIT</button>
+                <button type="button" class="btn cancel" onclick="closeform()">CLOSE</button>
+            </form>
+        </div>
+    </div>
+    </div>
+
+    <!--footer section-->
+
+    <footer>
+        <p>
+        <p class="center">&copy Kelsey's Page, <a href="https://github.com/ksalvo15/ksalvo15.github.io" target="_blank">Website Assignment</a></p>
+        <br>
+        </p>
+    </footer>
+    <script src="{% static 'js/js_index.js' %}"></script>
+</body>
+</html>
